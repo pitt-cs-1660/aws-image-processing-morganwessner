@@ -7,13 +7,14 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml ${LAMBDA_TASK_ROOT}/
 
 # install deps
-RUN uv sync
+#RUN uv sync
+RUN uv pip install --system .
 
 # copy function code
 COPY handler.py ${LAMBDA_TASK_ROOT}/
 
 # sync the project
-RUN uv sync --locked --no-install-project --no-editable
+#RUN uv sync --locked --no-install-project --no-editable
 
 # Set the CMD to your handler
-CMD [ "handler.exif_handler" ]
+CMD ["handler.exif_handler"]
